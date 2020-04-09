@@ -13,11 +13,13 @@ class TestJsonExpander(unittest.TestCase):
     def test_expand_simple_json(self):
         src_json_dict = {
             "first_name": "John",
-            "last_name": "Doe"
+            "last_name": "Doe",
+            "age": 19
         }
         expected_dst_json_dict = {
             "first_name": "John",
-            "last_name": "Doe"
+            "last_name": "Doe",
+            "age": 19
         }
         self.assertEqual(self.json_dict_expander.expand(src_json_dict), expected_dst_json_dict)
 
@@ -39,14 +41,17 @@ class TestJsonExpander(unittest.TestCase):
         context = Context()
         context.set_var("name", "John var")
         context.set_var("key", "last_name")
+        context.set_var("age", 18)
 
         src_json_dict = {
             "first_name": "$name",
-            "$key": "Doe"
+            "$key": "Doe",
+            "age": "$age"
         }
         expected_dst_json_dict = {
             "first_name": "John var",
-            "last_name": "Doe"
+            "last_name": "Doe",
+            "age": 18
         }
         self.assertEqual(self.json_dict_expander.expand(src_json_dict, context), expected_dst_json_dict)
 

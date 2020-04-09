@@ -15,3 +15,5 @@ class JsonDictExpander:
                 return context.get_var(json[1:], json)
             else:
                 return json
+        else:
+            return json
