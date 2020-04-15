@@ -91,6 +91,31 @@ class TestJsonExpander(unittest.TestCase):
         }
         self.assertEqual(self.json_dict_expander.expand(src_json_dict, context), expected_dst_json_dict)
 
+    def test_simple_repeat(self):
+        src_json_dict = {
+            "people": ["@repeat", 3, {
+                "first_name": "Jonas",
+                "last_name": "Doe"
+            }]
+        }
+        expected_dst_json_dict = {
+            "people": [
+                {
+                    "first_name": "Jonas",
+                    "last_name": "Doe"
+                },
+                {
+                    "first_name": "Jonas",
+                    "last_name": "Doe"
+                },
+                {
+                    "first_name": "Jonas",
+                    "last_name": "Doe"
+                },
+            ]
+        }
+        self.assertEqual(self.json_dict_expander.expand(src_json_dict), expected_dst_json_dict)
+
 
 if __name__ == '__main__':
     unittest.main()
